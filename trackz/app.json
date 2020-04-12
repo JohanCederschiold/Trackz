@@ -26,7 +26,8 @@
     },
     "android": {
       "package": "se.jpdc.Treazures",
-      "permissions" : ["LOCATION"]
+      "permissions" : ["ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION", "LOCATION"]
     }
   }
 }

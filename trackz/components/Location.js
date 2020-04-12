@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Platform, Text, View, Button, StyleSheet } from 'react-native'
+import { Platform, Text, View, Button, StyleSheet, PermissionsAndroid } from 'react-native'
 import Constants from 'expo-constants'
 import * as Location from 'expo-location'
 import { getDistance } from 'geolib'
+import * as Permissions from 'expo-permissions'
 import Data from 'mock/data'
 
 export default function App() {
@@ -37,13 +38,16 @@ export default function App() {
 
 
 
-  useEffect(() => {
+  useEffect( () => {
     (async () => {
       let { status } = await Location.requestPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
       }
-    });
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
   });
 
   let text = 'Press button to start';
