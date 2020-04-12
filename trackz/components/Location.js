@@ -1,16 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { Platform, Text, View, Button, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-import * as Location from 'expo-location';
+import React, { useState, useEffect } from 'react'
+import { Platform, Text, View, Button, StyleSheet } from 'react-native'
+import Constants from 'expo-constants'
+import * as Location from 'expo-location'
+import { getDistance } from 'geolib'
+import Data from 'mock/data'
 
 export default function App() {
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const [location, setLocation] = useState(null)
+  const [errorMsg, setErrorMsg] = useState(null)
+  const [distance, setDistance] = useState(null)
+  //const [currentSession, setCurrentSession] = useState(null)
 
   const getPosition = async() => {
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
+    await Location.watchPositionAsync({
+        accuracy: Location.Accuracy.High,
+        timeInterval: 5000,
+        distanceInterval: 3,
+        mayShowUserSettingsDialog: true
+    },
+    newLocation => {
+        setLocation(newLocation)
+        console.log(location)
+        const currentPosition = {
+          latitude: newLocation.coords.latitude,
+          longitude: newLocation.coords.longitude
+        }
+        const distance = getDistance(currentPosition, Data)
+        console.log(distance)
+        setDistance(distance)
+      }
+    )
+    //setCurrentSession(cs)
   }
+
+  
 
 
 
@@ -23,17 +46,34 @@ export default function App() {
     });
   });
 
-  let text = 'Waiting..';
+  let text = 'Press button to start';
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
     text = JSON.stringify(location);
   }
 
+  const renderLocation = location ? <View>
+      <Text>Latitude: {location.coords.latitude}</Text>
+      <Text>Longitude: {location.coords.longitude}</Text>
+  </View> :
+  <View></View>
+
+  const renderDistance = distance ? 
+                        <View>
+                          <Text>
+                            {distance} meter
+                          </Text>
+                        </View> 
+                        :
+                        <View>
+                          <Text>Awaiting position</Text>
+                        </View>
+
   return (
     <View>
-      <Text>{text}</Text>
-      <Button title="Get" onPress={() => getPosition()}/>
+      {renderDistance}
+      <Button title="Getter" onPress={() => getPosition()}/>
     </View>
   );
 }

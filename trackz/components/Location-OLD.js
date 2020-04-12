@@ -8,17 +8,9 @@ export default function App() {
   const [errorMsg, setErrorMsg] = useState(null);
 
   const getPosition = async() => {
-    await Location.watchPositionAsync({
-        accuracy: Location.Accuracy.High,
-        timeInterval: 5000,
-        distanceInterval: 3,
-        mayShowUserSettingsDialog: true
-    },
-    newLocation => {setLocation(newLocation)}
-    );
+    let location = await Location.getCurrentPositionAsync({});
+    setLocation(location);
   }
-
-
 
   useEffect(() => {
     (async () => {
@@ -29,23 +21,18 @@ export default function App() {
     });
   });
 
-  let text = 'Press button to start';
+  let text = 'Waiting..';
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
     text = JSON.stringify(location);
   }
 
-  const renderLocation = location ? <View>
-      <Text>Latitude: {location.coords.latitude}</Text>
-      <Text>Longitude: {location.coords.longitude}</Text>
-  </View> :
-  <View></View>
-
   return (
     <View>
-      {renderLocation}
-      <Button title="Getter" onPress={() => getPosition()}/>
+      <Text>{text}</Text>
+      <Button title="Start" onPress={() => getPosition()}/>
+
     </View>
   );
 }

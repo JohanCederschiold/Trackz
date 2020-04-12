@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "HelloWorld",
+    "name": "Treazures",
     "slug": "trackz",
     "platforms": [
       "ios",
@@ -25,6 +25,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "se.jpdc.Treazures",
       "permissions" : ["LOCATION"]
     }
   }

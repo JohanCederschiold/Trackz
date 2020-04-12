@@ -1,6 +1,6 @@
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
-import CurrentLocation from 'components/Location_2'
+import CurrentLocation from 'components/Location'
 
 const Home = () => {
 
