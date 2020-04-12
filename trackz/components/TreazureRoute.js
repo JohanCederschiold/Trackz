@@ -1,13 +1,15 @@
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
-import TreazurerRoute from 'components/TreazureRoute'
 import CurrentLocation from 'components/TreazureLocation'
 
-const Home = () => {
+const TreazureRoute = () => {
 
     return (
         <View style={styles.screen}>
-            <TreazurerRoute />
+            <Text>
+                This is Treasure screen
+            </Text>
+            <CurrentLocation />
         </View>
     )
 
@@ -23,4 +25,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default Home
+export default TreazureRoute

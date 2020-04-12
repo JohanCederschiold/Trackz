@@ -6,11 +6,10 @@ import { getDistance } from 'geolib'
 import * as Permissions from 'expo-permissions'
 import Data from 'mock/data'
 
-export default function App() {
+export default function TreazureLocation() {
   const [location, setLocation] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
   const [distance, setDistance] = useState(null)
-  //const [currentSession, setCurrentSession] = useState(null)
 
   const getPosition = async() => {
     await Location.watchPositionAsync({
@@ -27,11 +26,9 @@ export default function App() {
           longitude: newLocation.coords.longitude
         }
         const distance = getDistance(currentPosition, Data)
-        console.log(distance)
         setDistance(distance)
       }
     )
-    //setCurrentSession(cs)
   }
 
   
