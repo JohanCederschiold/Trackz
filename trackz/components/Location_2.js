@@ -8,8 +8,14 @@ export default function App() {
   const [errorMsg, setErrorMsg] = useState(null);
 
   const getPosition = async() => {
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
+    await Location.watchPositionAsync({
+        accuracy: Location.Accuracy.High,
+        timeInterval: 5000,
+        distanceInterval: 3,
+        mayShowUserSettingsDialog: true
+    },
+    newLocation => {setLocation(newLocation)}
+    );
   }
 
 
@@ -23,17 +29,23 @@ export default function App() {
     });
   });
 
-  let text = 'Waiting..';
+  let text = 'Press button to start';
   if (errorMsg) {
     text = errorMsg;
   } else if (location) {
     text = JSON.stringify(location);
   }
 
+  const renderLocation = location ? <View>
+      <Text>Latitude: {location.coords.latitude}</Text>
+      <Text>Longitude: {location.coords.longitude}</Text>
+  </View> :
+  <View></View>
+
   return (
     <View>
-      <Text>{text}</Text>
-      <Button title="Get" onPress={() => getPosition()}/>
+      {renderLocation}
+      <Button title="Getter" onPress={() => getPosition()}/>
     </View>
   );
 }
