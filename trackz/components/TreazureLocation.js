@@ -4,12 +4,14 @@ import Constants from 'expo-constants'
 import * as Location from 'expo-location'
 import { getDistance } from 'geolib'
 import * as Permissions from 'expo-permissions'
-import Data from 'mock/data'
+//import Data from 'mock/data'
 
-export default function TreazureLocation() {
+export default function TreazureLocation(props) {
   const [location, setLocation] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
   const [distance, setDistance] = useState(null)
+
+  const {waypoint, onArrived} = props
 
   const getPosition = async() => {
     await Location.watchPositionAsync({
@@ -25,15 +27,14 @@ export default function TreazureLocation() {
           latitude: newLocation.coords.latitude,
           longitude: newLocation.coords.longitude
         }
-        const distance = getDistance(currentPosition, Data)
+        const distance = getDistance(currentPosition, waypoint)
         setDistance(distance)
+        if (distance < 50 ) {
+          onArrived()
+        }
       }
     )
   }
-
-  
-
-
 
   useEffect( () => {
     (async () => {
@@ -45,7 +46,8 @@ export default function TreazureLocation() {
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
     })();
-  });
+    getPosition()
+  }, []);
 
   let text = 'Press button to start';
   if (errorMsg) {

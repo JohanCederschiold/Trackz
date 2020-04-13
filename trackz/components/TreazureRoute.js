@@ -1,15 +1,30 @@
-import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
-import CurrentLocation from 'components/TreazureLocation'
+import React, {useState} from 'react'
+import {View, Text, Button, StyleSheet} from 'react-native'
+import Waypointer from 'components/TreazureLocation'
+import Data from 'mock/data'
 
 const TreazureRoute = () => {
+
+    const [currentWaypoint, setCurrentWaypoint] = useState(0)
+
+    const nextWayPoint = () => {
+        if (currentWaypoint === Data.length -1) {
+            setCurrentWaypoint(0)
+        } else {
+            setCurrentWaypoint(currentWaypoint + 1)
+        }
+        
+    }
 
     return (
         <View style={styles.screen}>
             <Text>
                 This is Treasure screen
             </Text>
-            <CurrentLocation />
+            <Waypointer waypoint={Data[currentWaypoint]}
+                        onArrived={() => {nextWayPoint}}/>
+            <Button title="Next"
+                    onPress={nextWayPoint}/>
         </View>
     )
 

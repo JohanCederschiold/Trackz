@@ -1,7 +1,6 @@
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import TreazurerRoute from 'components/TreazureRoute'
-import CurrentLocation from 'components/TreazureLocation'
 
 const Home = () => {
 
