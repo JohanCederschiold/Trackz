@@ -22,7 +22,6 @@ export default function TreazureLocation(props) {
     },
     newLocation => {
         setLocation(newLocation)
-        console.log(location)
         const currentPosition = {
           latitude: newLocation.coords.latitude,
           longitude: newLocation.coords.longitude
@@ -32,6 +31,7 @@ export default function TreazureLocation(props) {
         if (distance < 50 ) {
           onArrived()
         }
+        console.log(distance)
       }
     )
   }

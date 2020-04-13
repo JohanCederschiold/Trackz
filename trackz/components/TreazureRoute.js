@@ -8,6 +8,7 @@ const TreazureRoute = () => {
     const [currentWaypoint, setCurrentWaypoint] = useState(0)
 
     const nextWayPoint = () => {
+        console.log('Current waypoint', currentWaypoint)
         if (currentWaypoint === Data.length -1) {
             setCurrentWaypoint(0)
         } else {
