@@ -1,10 +1,23 @@
 [
     {
-    "latitude": 57.737155, 
-    "longitude": 12.049008
+    "name": "The crossing",
+    "latitude": 57.735655,  
+    "longitude": 12.059812,
+    "question": "Slå in din kod",
+    "answer": "1234"
     }, 
     {
-    "latitude": 57.744004, 
-    "longitude": 12.060069
+    "name": "Lemmings are here",
+    "latitude": 57.735128,  
+    "longitude": 12.053782,
+    "question": "Slå in din kod",
+    "answer": "1234"
+    },
+    {
+    "name": "Home",
+    "latitude": 57.735399,  
+    "longitude": 12.055466,
+    "question": "Slå in din kod",
+    "answer": "1234"
     }
 ]

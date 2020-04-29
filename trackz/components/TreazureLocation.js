@@ -1,82 +1,80 @@
 import React, { useState, useEffect } from 'react'
-import { Platform, Text, View, Button, StyleSheet, PermissionsAndroid } from 'react-native'
+import { Platform, Text, View, Button, StyleSheet, Alert } from 'react-native'
 import Constants from 'expo-constants'
 import * as Location from 'expo-location'
 import { getDistance } from 'geolib'
 import * as Permissions from 'expo-permissions'
-//import Data from 'mock/data'
 
 export default function TreazureLocation(props) {
   const [location, setLocation] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
   const [distance, setDistance] = useState(null)
+  const [time, setTime] = useState(Date.now())
 
-  const {waypoint, onArrived} = props
+  const {waypoint, onArrive} = props
 
+  
   const getPosition = async() => {
-    await Location.watchPositionAsync({
-        accuracy: Location.Accuracy.High,
-        timeInterval: 5000,
-        distanceInterval: 3,
-        mayShowUserSettingsDialog: true
-    },
-    newLocation => {
-        setLocation(newLocation)
-        const currentPosition = {
-          latitude: newLocation.coords.latitude,
-          longitude: newLocation.coords.longitude
-        }
-        const distance = getDistance(currentPosition, waypoint)
-        setDistance(distance)
-        if (distance < 50 ) {
-          onArrived()
-        }
-        console.log(distance)
-      }
-    )
+
+    const newLocation = await Location.getCurrentPositionAsync({})
+    //console.log(newLocation)
+    setLocation(newLocation)
+    calculateDistance()
   }
 
-  useEffect( () => {
+  const calculateDistance = () => {
+    if (location) {
+      const currentPosition = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude
+      }
+      const currentDistance = getDistance(currentPosition, waypoint)
+      if (currentDistance < 15) {
+        onArrive()
+      } else {
+        setDistance(getDistance(currentPosition, waypoint))
+      }
+    }
+  }
+
+  useEffect(() => {
+
     (async () => {
       let { status } = await Location.requestPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
       }
+    })()
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
-    getPosition()
-  }, []);
+    const interval = setInterval(() => {
+      getPosition()
+      setTime(Date.now())
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [time])
 
-  let text = 'Press button to start';
+
   if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
-
-  const renderLocation = location ? <View>
-      <Text>Latitude: {location.coords.latitude}</Text>
-      <Text>Longitude: {location.coords.longitude}</Text>
-  </View> :
-  <View></View>
+    console.log(errorMsg)
+  } 
 
   const renderDistance = distance ? 
-                        <View>
+                        <View key={distance}>
+                          <Text>
+                            {waypoint.name}
+                          </Text>
                           <Text>
                             {distance} meter
                           </Text>
                         </View> 
                         :
                         <View>
-                          <Text>Awaiting position</Text>
+                          <Text>Hämtar position</Text>
                         </View>
 
   return (
     <View>
       {renderDistance}
-      <Button title="Getter" onPress={() => getPosition()}/>
     </View>
   );
 }

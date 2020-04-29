@@ -26,8 +26,13 @@
     },
     "android": {
       "package": "se.jpdc.Treazures",
-      "permissions" : ["ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION", "LOCATION"]
-    }
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "LOCATION"
+      ]
+    },
+    "sdkVersion": "37.0.0",
+    "description": ""
   }
 }
