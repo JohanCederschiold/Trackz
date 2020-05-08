@@ -17,7 +17,6 @@ export default function TreazureLocation(props) {
   const getPosition = async() => {
 
     const newLocation = await Location.getCurrentPositionAsync({})
-    //console.log(newLocation)
     setLocation(newLocation)
     calculateDistance()
   }
@@ -60,10 +59,7 @@ export default function TreazureLocation(props) {
 
   const renderDistance = distance ? 
                         <View key={distance}>
-                          <Text>
-                            {waypoint.name}
-                          </Text>
-                          <Text>
+                          <Text style={styles.distanceText}>
                             {distance} meter
                           </Text>
                         </View> 
@@ -78,3 +74,11 @@ export default function TreazureLocation(props) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+
+  distanceText: {
+    fontSize: 20
+  }
+
+})
