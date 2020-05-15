@@ -1,6 +1,10 @@
 [
     {
         "title": "Utby mysteriet",
+<<<<<<< HEAD
+=======
+        "id" : 1,
+>>>>>>> issue-5
         "waypoints": [
             {
                 "name": "The crossing",
@@ -31,6 +35,10 @@
     },
     {
         "title": "Runt kvarteret",
+<<<<<<< HEAD
+=======
+        "id" : 2,
+>>>>>>> issue-5
         "waypoints": [
             {
                 "name": "Nära ån",
