@@ -1,0 +1,72 @@
+[
+    {
+        "title": "Utby mysteriet",
+        "id" : 1,
+        "waypoints": [
+            {
+                "name": "The crossing",
+                "latitude": 57.735655,  
+                "longitude": 12.059812,
+                "question": "Slå din första kod",
+                "numeric": true,
+                "answer": "1234"
+                }, 
+                {
+                "name": "Lemmings are here",
+                "latitude": 57.735128,  
+                "longitude": 12.053782,
+                "question": "Slå din andra kod",
+                "numeric": false,
+                "answer": "4567"
+                },
+                {
+                "name": "Home",
+                "latitude": 57.735399,  
+                "longitude": 12.055466,
+                "question": "Slå din tredje kod",
+                "numeric": true,
+                "answer": "7890"
+                }
+
+        ]
+    },
+    {
+        "title": "Runt kvarteret",
+        "id" : 2,
+        "waypoints": [
+            {
+                "name": "Nära ån",
+                "latitude": 57.734717,   
+                "longitude": 12.055906,
+                "question": "Vilket år föddes molly",
+                "numeric": true,
+                "answer": "2012"
+                }, 
+                {
+                "name": "Närmare bron",
+                "latitude": 57.734830, 
+                "longitude": 12.056959,
+                "question": "Skriv 2 med bokstäver",
+                "numeric": false,
+                "answer": "Två"
+                },
+                {
+                "name": "På väg hem",
+                "latitude": 57.735414, 
+                "longitude": 12.056776,
+                "question": "Vilket år är Max född",
+                "numeric": true,
+                "answer": "2012"
+                },
+                {
+                "name": "Hemma",
+                "latitude": 57.735343, 
+                "longitude": 12.055785,
+                "question": "Vilket nummer bor vi på",
+                "numeric": true,
+                "answer": "11"
+                }
+
+        ]
+    }
+]

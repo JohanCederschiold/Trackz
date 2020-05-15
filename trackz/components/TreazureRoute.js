@@ -1,26 +1,27 @@
 import React, {useState} from 'react'
 import {View, Text, Button, TextInput, StyleSheet} from 'react-native'
 import Waypointer from 'components/TreazureLocation'
-import Data from 'mock/data'
 
-const TreazureRoute = () => {
+const TreazureRoute = ({waypoints, onReset}) => {
+
+    console.log(waypoints[0])
+
 
     const [currentWaypoint, setCurrentWaypoint] = useState(0)
-    const [currentGoal, setCurrentGoal] = useState(Data[0])
+    const [currentGoal, setCurrentGoal] = useState(waypoints[0])
     const [arrived, setArrived] = useState(false)
     const [guess, setGuess] = useState('')
 
     
     const nextWayPoint = () => {
-        if (currentWaypoint === Data.length -1) {
+        if (currentWaypoint === waypoints.length -1) {
             setCurrentWaypoint(0)
-            setCurrentGoal(Data[0])
+            setCurrentGoal(waypoints[0])
         } else {
             const temporaryIndex = currentWaypoint + 1
             setCurrentWaypoint(temporaryIndex)
-            setCurrentGoal(Data[temporaryIndex])
+            setCurrentGoal(waypoints[temporaryIndex])
         }
-        console.log("Waypoint updated", Data[currentWaypoint])
     }
 
     const handleArrived = () => {
@@ -71,6 +72,8 @@ const TreazureRoute = () => {
                         onPress={() => setArrived(!arrived)}/>
                 <Button title="Proceed"
                         onPress={handleProceed}/>   
+                <Button title="Reset"
+                        onPress={onReset}/>   
             </View>
         </View>
     )
