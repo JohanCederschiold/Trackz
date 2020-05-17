@@ -68,5 +68,51 @@
                 }
 
         ]
+    },
+    {
+        "title": "JimKat palace challenge",
+        "id" : 3,
+        "waypoints": [
+            {
+                "name": "I do me",
+                "latitude": 57.696839,   
+                "longitude": 12.005976,
+                "question": "Vilket år tävlade Eric Saade med popular",
+                "numeric": true,
+                "answer": "2011"
+                }, 
+                {
+                "name": "Kan ni se skogen för alla träden",
+                "latitude": 57.697239, 
+                "longitude": 12.009387,
+                "question": "Har namnsdag på julafton",
+                "numeric": false,
+                "answer": "Eva"
+                },
+                {
+                "name": "På jakt efter tandlöse",
+                "latitude": 57.693794, 
+                "longitude": 12.008417,
+                "question": "Vad heter draken i bröderna lejonhjärta",
+                "numeric": false,
+                "answer": "Kattla"
+                },
+                {
+                "name": "Är det Margrets låt?",
+                "latitude": 57.694089,  
+                "longitude": 12.003071,
+                "question": "Let's go ape in my....",
+                "numeric": false,
+                "answer": "Cabana"
+                },
+                {
+                "name": "Finns det klabbor här?",
+                "latitude": 57.697006,  
+                "longitude": 12.001118,
+                "question": "SANGRIA......",
+                "numeric": false,
+                "answer": "Bingo"
+                }
+        ]
     }
 ]
