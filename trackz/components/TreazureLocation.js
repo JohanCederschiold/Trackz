@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Platform, Text, View, Button, StyleSheet, Alert } from 'react-native'
+import { Platform, Text, View, Button, StyleSheet, Alert, Dimensions } from 'react-native'
 import Constants from 'expo-constants'
 import * as Location from 'expo-location'
 import { getDistance } from 'geolib'
@@ -58,14 +58,14 @@ export default function TreazureLocation(props) {
   } 
 
   const renderDistance = distance ? 
-                        <View key={distance}>
+                        <View key={distance} style={styles.distanceContainer}>
                           <Text style={styles.distanceText}>
                             {distance} meter
                           </Text>
                         </View> 
                         :
-                        <View>
-                          <Text>Hämtar position</Text>
+                        <View style={styles.distanceContainer}>
+                          <Text style={styles.distanceText}>Hämtar position</Text>
                         </View>
 
   return (
@@ -78,7 +78,19 @@ export default function TreazureLocation(props) {
 const styles = StyleSheet.create({
 
   distanceText: {
-    fontSize: 20
+    fontSize: 30
+  },
+
+  distanceContainer: {
+    borderColor: 'black',
+    borderWidth: 1,
+    paddingVertical: 40,
+    width: Dimensions.get('window').width / 10 * 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderRadius: 20
+
   }
 
 })

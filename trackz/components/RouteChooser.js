@@ -15,15 +15,18 @@ const RouteChooser = () => {
     }
     
     const renderAdventures = allRoutes ?  allRoutes.map(item => 
-                                    <View key={item.id}>
-                                        <Text onPress={() => handleChoose(item)}>{item.title}</Text>
+                                    <View   key={item.id}>
+                                        <Text   onPress={() => handleChoose(item)}
+                                                style={styles.adventureItemText}>
+                                            {item.title}
+                                        </Text>
                                     </View> 
                                     ):
                                     <Text>Laddar äventyr</Text>
 
     const renderChosenAdventure =  chosenAdventure ?  <View>
-                                                        <Text>Du har valt:</Text>
-                                                        <Text>{chosenAdventure.title}</Text>
+                                                        <Text style={styles.headline}>Du har valt:</Text>
+                                                        <Text style={styles.adventureItemText}>{chosenAdventure.title}</Text>
                                                         <Button title="Bekräfta" 
                                                                 onPress={() => setStartAdventure(true)}/>
                                                         <Button title="Ångra" 
@@ -31,7 +34,7 @@ const RouteChooser = () => {
                                                     </View> 
                                                     :
                                                     <View>
-                                                        <Text>Välj ett äventyr</Text>
+                                                        <Text style={styles.headline}>Välj ett äventyr</Text>
                                                         {renderAdventures}
                                                     </View>
 
@@ -64,7 +67,13 @@ const styles = StyleSheet.create({
     },
 
     headline: {
-        fontSize: 20
+        fontSize: 30,
+        paddingVertical: 10
+    },
+
+    adventureItemText : {
+        fontSize: 20,
+        paddingBottom: 5
     }
 })
 

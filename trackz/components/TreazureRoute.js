@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {View, Text, Button, TextInput, StyleSheet} from 'react-native'
+import {View, Text, Button, TextInput, StyleSheet, Dimensions} from 'react-native'
 import Waypointer from 'components/TreazureLocation'
 
 const TreazureRoute = ({waypoints, onReset}) => {
@@ -10,13 +10,15 @@ const TreazureRoute = ({waypoints, onReset}) => {
     const [currentWaypoint, setCurrentWaypoint] = useState(0)
     const [currentGoal, setCurrentGoal] = useState(waypoints[0])
     const [arrived, setArrived] = useState(false)
+    const [allComplete, setAllComplete] = useState(false)
     const [guess, setGuess] = useState('')
 
     
     const nextWayPoint = () => {
         if (currentWaypoint === waypoints.length -1) {
-            setCurrentWaypoint(0)
-            setCurrentGoal(waypoints[0])
+            //setCurrentWaypoint(0)
+            //(waypoints[0])
+            setAllComplete(true)
         } else {
             const temporaryIndex = currentWaypoint + 1
             setCurrentWaypoint(temporaryIndex)
@@ -51,9 +53,25 @@ const TreazureRoute = ({waypoints, onReset}) => {
                                                         placeholder="Skriv här"
                                                         keyboardType={currentGoal.numeric ? 'numeric' : 'default'}/>
                                         </View> 
-                                    :              
+                                    :                                               
+                                    <View style={styles.goalcontainer}>
+                                         <Text style={styles.goaltext}>
+                                                {currentGoal.name}
+                                        </Text>
                                         <Waypointer waypoint={currentGoal}
-                                                    onArrive={handleArrived}/>
+                                                        onArrive={handleArrived}/>
+                                    </View>           
+
+    const renderGameWon = <View>
+                            <Text style={styles.headline}>
+                                Grattis!!!
+                            </Text>
+                            <Text>
+                                Du har klarat spelet. Bra jobbat!
+                            </Text>
+                            <Button title="Fortsätt"
+                                    onPress={onReset} />
+                        </View>
 
 
     
@@ -61,12 +79,7 @@ const TreazureRoute = ({waypoints, onReset}) => {
 
     return (
         <View style={styles.screen}>
-            <View style={styles.goalcontainer}>
-                <Text style={styles.goaltext}>
-                    Current goal: {currentGoal.name}
-                </Text>
-            </View>
-            {renderNavigation}
+            {allComplete ? renderGameWon : renderNavigation}
             <View style={styles.devButtons}>
                 <Button title="Toggle" 
                         onPress={() => setArrived(!arrived)}/>
@@ -90,6 +103,23 @@ const styles = StyleSheet.create({
     }, 
 
     goaltext : {
+        fontSize: 20,
+        color: 'white',
+        paddingVertical: 10
+    },
+
+    goalcontainer : {
+        borderColor: 'black',
+        borderWidth: 1,
+        paddingTop: 20,
+        backgroundColor: 'black',
+        width: Dimensions.get('window').width / 10 * 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20
+    },
+
+    headline: {
         fontSize: 20
     },
 
