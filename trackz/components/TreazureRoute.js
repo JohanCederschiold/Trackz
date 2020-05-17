@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import {View, Text, Button, TextInput, StyleSheet, Dimensions} from 'react-native'
+import {View, Text, Button, TextInput, StyleSheet, Dimensions, Alert} from 'react-native'
 import Waypointer from 'components/TreazureLocation'
+import AcceptButton from 'components/shared/AcceptButton'
 
 const TreazureRoute = ({waypoints, onReset}) => {
 
@@ -16,8 +17,6 @@ const TreazureRoute = ({waypoints, onReset}) => {
     
     const nextWayPoint = () => {
         if (currentWaypoint === waypoints.length -1) {
-            //setCurrentWaypoint(0)
-            //(waypoints[0])
             setAllComplete(true)
         } else {
             const temporaryIndex = currentWaypoint + 1
@@ -42,6 +41,28 @@ const TreazureRoute = ({waypoints, onReset}) => {
     const handleProceed = () => {
         setArrived(false)
         nextWayPoint()
+    }
+
+    const handleCancel = () => {
+        onReset()
+    
+        Alert.alert(
+            "Avbryta?",
+            "Vill du verkligen avbryta ditt äventyr?",
+            [
+              {
+                text: "Nej",
+                onPress: () => {},
+                style: "cancel"
+              },
+              { text: "Ja", onPress: () => doReset()}
+            ],
+            { cancelable: false }
+          )
+    }
+
+    const doReset = () => {
+        onReset()
     }
 
 
@@ -81,12 +102,10 @@ const TreazureRoute = ({waypoints, onReset}) => {
         <View style={styles.screen}>
             {allComplete ? renderGameWon : renderNavigation}
             <View style={styles.devButtons}>
-                <Button title="Toggle" 
+                <Button title="Toggle"
                         onPress={() => setArrived(!arrived)}/>
-                <Button title="Proceed"
-                        onPress={handleProceed}/>   
-                <Button title="Reset"
-                        onPress={onReset}/>   
+                { !allComplete && <AcceptButton     title="Avbryt"
+                                                    onPress={handleCancel} />}
             </View>
         </View>
     )
